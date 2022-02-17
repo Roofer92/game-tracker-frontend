@@ -9,7 +9,7 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <playgroup-player-table></playgroup-player-table>
+          <playgroup-player-table #playersTable></playgroup-player-table>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
@@ -23,7 +23,7 @@
     <mat-grid-tile>
       <mat-card class="dashboard-card">
         <mat-card-content class="dashboard-card-content">
-          <playgroup-player-form></playgroup-player-form>
+          <playgroup-player-form (submitted)="onCreatePlayerSubmit($event)"></playgroup-player-form>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

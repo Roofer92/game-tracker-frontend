@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PlayersService } from 'src/app/core/services/players.service';
 import { PlayerTableDataSource, PlayerTableItem } from './player-table-datasource';
 
@@ -10,12 +10,13 @@ import { PlayerTableDataSource, PlayerTableItem } from './player-table-datasourc
   templateUrl: './player-table.component.html',
   styleUrls: ['./player-table.component.css']
 })
-export class PlayerTableComponent implements OnInit {
+export class PlayerTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<PlayerTableItem>;
-  dataToDisplay = []
-  dataSource: PlayerTableDataSource = new PlayerTableDataSource(this.dataToDisplay);
+
+  tableData: any[] = [];
+  dataSource = new MatTableDataSource<PlayerTableDataSource>(this.tableData);
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'id'];
@@ -25,22 +26,24 @@ export class PlayerTableComponent implements OnInit {
   ) {
     
   }
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
 
   ngOnInit(): void {
       this.playersService.getPlayers().subscribe((players) => {
-        this.dataSource.data = players; 
-        this.dataSource.sort = this.sort;
+        this.dataSource.data = players;
         this.dataSource.paginator = this.paginator;
-        this.table.dataSource = this.dataSource;
+        this.dataSource.sort = this.sort;
       });
   }
 
-  refresh(): void {
+  public refresh(): void {
     this.playersService.getPlayers().subscribe((players) => {
-      this.dataSource.data = players; 
-      this.dataSource.sort = this.sort;
+      this.dataSource.data = players;
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
-    this.table.renderRows();
   }
 }
