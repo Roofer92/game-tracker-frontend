@@ -16,4 +16,8 @@ export class PlayersService {
   addPlayer(createPlayerDto: CreatePlayerDto): Observable<any> {
     return this.http.post<any>(URL, createPlayerDto);
   }
+
+  getPlayers(): Observable<any> {
+    return this.http.get<any>(URL);
+  }
 }

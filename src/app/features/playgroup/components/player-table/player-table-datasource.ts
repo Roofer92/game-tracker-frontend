@@ -3,38 +3,15 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { PlayersService } from 'src/app/core/services/players.service';
 
 // TODO: Replace this with your own data model type
 export interface PlayerTableItem {
   _id: number;
   name: string;
-  totalGames: number;
-  totalWins: number;
+  total_games: number;
+  total_wins: number;
 }
-
-// TODO: replace this with real data from your application
-const EXAMPLE_DATA: PlayerTableItem[] = [
-  {totalGames: 50, totalWins: 10, _id: 1, name: 'Hydrogen'},
-  {totalGames: 50, totalWins: 10, _id: 2, name: 'Helium'},
-  {totalGames: 50, totalWins: 10, _id: 3, name: 'Lithium'},
-  {totalGames: 50, totalWins: 10, _id: 4, name: 'Beryllium'},
-  {totalGames: 50, totalWins: 10, _id: 5, name: 'Boron'},
-  {totalGames: 50, totalWins: 10, _id: 6, name: 'Carbon'},
-  {totalGames: 50, totalWins: 10, _id: 7, name: 'Nitrogen'},
-  {totalGames: 50, totalWins: 10, _id: 8, name: 'Oxygen'},
-  {totalGames: 50, totalWins: 10, _id: 9, name: 'Fluorine'},
-  {totalGames: 50, totalWins: 10, _id: 10, name: 'Neon'},
-  {totalGames: 50, totalWins: 10, _id: 11, name: 'Sodium'},
-  {totalGames: 50, totalWins: 10, _id: 12, name: 'Magnesium'},
-  {totalGames: 50, totalWins: 10, _id: 13, name: 'Aluminum'},
-  {totalGames: 50, totalWins: 10, _id: 14, name: 'Silicon'},
-  {totalGames: 50, totalWins: 10, _id: 15, name: 'Phosphorus'},
-  {totalGames: 50, totalWins: 10, _id: 16, name: 'Sulfur'},
-  {totalGames: 50, totalWins: 10, _id: 17, name: 'Chlorine'},
-  {totalGames: 50, totalWins: 10, _id: 18, name: 'Argon'},
-  {totalGames: 50, totalWins: 10, _id: 19, name: 'Potassium'},
-  {totalGames: 50, totalWins: 10, _id: 20, name: 'Calcium'},
-];
 
 /**
  * Data source for the PlayerTable view. This class should
@@ -42,12 +19,16 @@ const EXAMPLE_DATA: PlayerTableItem[] = [
  * (including sorting, pagination, and filtering).
  */
 export class PlayerTableDataSource extends DataSource<PlayerTableItem> {
-  data: PlayerTableItem[] = EXAMPLE_DATA;
+  data: PlayerTableItem[] = [];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
-  constructor() {
+  constructor(data?: any[]) {
     super();
+    if (data) {
+      this.data = data;
+      console.log(this.data);
+    } 
   }
 
   /**
@@ -111,3 +92,4 @@ export class PlayerTableDataSource extends DataSource<PlayerTableItem> {
 function compare(a: string | number, b: string | number, isAsc: boolean): number {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
+

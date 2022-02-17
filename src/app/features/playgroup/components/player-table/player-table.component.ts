@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
+import { PlayersService } from 'src/app/core/services/players.service';
 import { PlayerTableDataSource, PlayerTableItem } from './player-table-datasource';
 
 @Component({
@@ -9,26 +10,37 @@ import { PlayerTableDataSource, PlayerTableItem } from './player-table-datasourc
   templateUrl: './player-table.component.html',
   styleUrls: ['./player-table.component.css']
 })
-export class PlayerTableComponent implements OnInit, AfterViewInit {
+export class PlayerTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<PlayerTableItem>;
-  dataSource: PlayerTableDataSource;
+  dataToDisplay = []
+  dataSource: PlayerTableDataSource = new PlayerTableDataSource(this.dataToDisplay);
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'id'];
 
-  constructor() {
-    this.dataSource = new PlayerTableDataSource();
+  constructor(
+    private playersService: PlayersService,
+  ) {
+    
   }
 
   ngOnInit(): void {
-    //TODO: get player data from backend
+      this.playersService.getPlayers().subscribe((players) => {
+        this.dataSource.data = players; 
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.table.dataSource = this.dataSource;
+      });
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+  refresh(): void {
+    this.playersService.getPlayers().subscribe((players) => {
+      this.dataSource.data = players; 
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
+    this.table.renderRows();
   }
 }
