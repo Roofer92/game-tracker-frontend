@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PlayerFormComponent } from './components/player-form/player-form.component';
 
 import { DashboardComponent } from './container/dashboard/dashboard.component';
 import { PlayerDetailsComponent } from './container/player-details/player-details.component';
