@@ -7,7 +7,7 @@
     </ng-container>
 
     <!-- Id Column -->
-    <ng-container matColumnDef="id">
+    <ng-container matColumnDef="winrate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Winrate</th>
       <td mat-cell *matCellDef="let row">{{row.total_wins | divideValues: row.total_games | percent}}</td>
     </ng-container>

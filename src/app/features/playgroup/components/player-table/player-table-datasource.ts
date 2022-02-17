@@ -3,7 +3,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { PlayersService } from 'src/app/core/services/players.service';
 import { Player } from 'src/app/shared/model/player.model';
 
 
@@ -75,7 +74,7 @@ export class PlayerTableDataSource extends DataSource<Player> {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
         case 'name': return compare(a.name, b.name, isAsc);
-        case 'id': return compare(+a._id, +b._id, isAsc);
+        case 'winrate': return compare((+a.total_wins/a.total_games), (+b.total_wins/b.total_games), isAsc);
         default: return 0;
       }
     });

@@ -22,13 +22,12 @@ export class PlayerTableComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Player>(this.tableData);
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'id'];
+  displayedColumns = ['name', 'winrate'];
 
   constructor(
     private playersService: PlayersService,
-  ) {
-    
-  }
+  ) {}
+
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;

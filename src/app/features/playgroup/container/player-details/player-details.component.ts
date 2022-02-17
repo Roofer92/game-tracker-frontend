@@ -1,5 +1,4 @@
-import { prepareEventListenerParameters } from '@angular/compiler/src/render3/view/template';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DecksService } from 'src/app/core/services/decks.service';
@@ -14,6 +13,8 @@ import { DeckFormDialogComponent } from '../../components/deck-form-dialog/deck-
   styleUrls: ['./player-details.component.css']
 })
 export class PlayerDetailsComponent implements OnInit {
+  @ViewChild('decksTable') decksTable: any;
+
   public player: Player | undefined;
 
   constructor(
@@ -28,6 +29,7 @@ export class PlayerDetailsComponent implements OnInit {
       (params: Params) => {
         this.playersService.getPlayer(params['id']).subscribe((player: Player) => {
           this.player = player;
+          this.decksTable.refresh(this.player.decks);
         });
       });
   }
@@ -60,7 +62,11 @@ export class PlayerDetailsComponent implements OnInit {
       }
 
       this.decksService.addDeck(createDeckDto).subscribe((deck) => {
-        // TODO: Refresh deck table
+        if (!this.player) {
+          return;
+        }
+        this.player.decks.push(deck);
+        this.decksTable.refresh(this.player.decks);
       });
     });
   }

@@ -3,44 +3,16 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { Deck } from 'src/app/shared/model/deck.model';
 
-// TODO: Replace this with your own data model type
-export interface DecksTableItem {
-  name: string;
-  id: number;
-}
-
-// TODO: replace this with real data from your application
-const EXAMPLE_DATA: DecksTableItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
-];
 
 /**
  * Data source for the DecksTable view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class DecksTableDataSource extends DataSource<DecksTableItem> {
-  data: DecksTableItem[] = EXAMPLE_DATA;
+export class DecksTableDataSource extends DataSource<Deck> {
+  data: Deck[] = [];
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
@@ -53,7 +25,7 @@ export class DecksTableDataSource extends DataSource<DecksTableItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<DecksTableItem[]> {
+  connect(): Observable<Deck[]> {
     if (this.paginator && this.sort) {
       // Combine everything that affects the rendered data into one update
       // stream for the data-table to consume.
@@ -76,7 +48,7 @@ export class DecksTableDataSource extends DataSource<DecksTableItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: DecksTableItem[]): DecksTableItem[] {
+  private getPagedData(data: Deck[]): Deck[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
@@ -89,7 +61,7 @@ export class DecksTableDataSource extends DataSource<DecksTableItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: DecksTableItem[]): DecksTableItem[] {
+  private getSortedData(data: Deck[]): Deck[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -98,7 +70,7 @@ export class DecksTableDataSource extends DataSource<DecksTableItem> {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
         case 'name': return compare(a.name, b.name, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'winrate': return compare((+a.total_wins/a.total_games), (+b.total_wins/b.total_games), isAsc);
         default: return 0;
       }
     });
