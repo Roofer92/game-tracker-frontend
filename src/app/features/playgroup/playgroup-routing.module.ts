@@ -3,9 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { PlayerFormComponent } from './components/player-form/player-form.component';
 
 import { DashboardComponent } from './container/dashboard/dashboard.component';
+import { PlayerDetailsComponent } from './container/player-details/player-details.component';
 
 const routes: Routes = [
     { path: 'playgroup/dashboard', component: DashboardComponent},
+    { path: 'playgroup/players/:id', component: PlayerDetailsComponent},
 ];
 
 @NgModule({

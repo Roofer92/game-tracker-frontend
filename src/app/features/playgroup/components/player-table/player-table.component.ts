@@ -1,9 +1,10 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PlayersService } from 'src/app/core/services/players.service';
-import { PlayerTableDataSource, PlayerTableItem } from './player-table-datasource';
+import { Player } from 'src/app/shared/model/player.model';
+import { PlayerTableDataSource, } from './player-table-datasource';
 
 @Component({
   selector: 'playgroup-player-table',
@@ -11,12 +12,14 @@ import { PlayerTableDataSource, PlayerTableItem } from './player-table-datasourc
   styleUrls: ['./player-table.component.css']
 })
 export class PlayerTableComponent implements OnInit, AfterViewInit {
+  @Output() selected: EventEmitter<Player> = new EventEmitter();
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<PlayerTableItem>;
+  @ViewChild(MatTable) table!: MatTable<Player>;
 
   tableData: any[] = [];
-  dataSource = new MatTableDataSource<PlayerTableDataSource>(this.tableData);
+  dataSource = new MatTableDataSource<Player>(this.tableData);
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'id'];
@@ -45,5 +48,9 @@ export class PlayerTableComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+  }
+
+  rowSelected(player: Player) {
+    this.selected.emit(player);
   }
 }

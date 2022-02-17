@@ -23,7 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
   ],
   exports: [
     NavBarComponent

@@ -1,0 +1,42 @@
+<div class="grid-container">
+    <h1 class="mat-h1">{{player?.name}}</h1>
+    <mat-grid-list cols="2" rowHeight="350px">
+        <mat-grid-tile [rowspan]="2">
+            <mat-card class="dashboard-card">
+                <mat-card-header>
+                    <mat-card-title>
+                        Decks
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="dashboard-card-content">
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="1">
+            <mat-card class="dashboard-card">
+                <mat-card-header>
+                    <mat-card-title>
+                        Stats
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="dashboard-card-content">
+                    <p>Total Games: {{player?.total_wins}}</p>
+                    <p>Total Games: {{player?.total_games }}</p>
+                    <p>Win Percentage: {{player?.total_wins | divideValues: player?.total_games | percent }}</p>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="1">
+            <mat-card class="dashboard-card">
+                <mat-card-header>
+                    <mat-card-title>
+                        Favourite Toy
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="dashboard-card-content">
+                    <p>Placeholder for most played Deck in last X games</p>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

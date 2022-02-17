@@ -18,14 +18,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { PlayerDetailsComponent } from './container/player-details/player-details.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { PlayerFormDialogComponent } from './components/player-form-dialog/player-form-dialog.component';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     PlayerTableComponent,
-    PlayerFormComponent
+    PlayerFormComponent,
+    PlayerDetailsComponent,
+    PlayerFormDialogComponent
 ],
   imports: [
     CommonModule,
@@ -43,7 +48,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
-    ReactiveFormsModule
+    MatDialogModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
   ]
 })
 export class PlaygroupModule { }
