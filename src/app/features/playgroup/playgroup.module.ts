@@ -21,6 +21,7 @@ import { PlayerDetailsComponent } from './container/player-details/player-detail
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PlayerFormDialogComponent } from './components/player-form-dialog/player-form-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DecksTableComponent } from './components/decks-table/decks-table.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     DashboardComponent,
     PlayerTableComponent,
     PlayerDetailsComponent,
-    PlayerFormDialogComponent
+    PlayerFormDialogComponent,
+    DecksTableComponent
 ],
   imports: [
     CommonModule,
