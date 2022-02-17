@@ -15,7 +15,6 @@ import { PlaygroupModule } from './features/playgroup/playgroup.module';
     BrowserModule,
     BrowserAnimationsModule,
     CoreModule,
-    PlaygroupModule,
     AppRoutingModule,
   ],
   providers: [],

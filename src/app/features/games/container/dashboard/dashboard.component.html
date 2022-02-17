@@ -1,0 +1,34 @@
+<div class="grid-container">
+    <h1 class="mat-h1">Games - Dashboard</h1>
+    <mat-grid-list cols="2" rowHeight="400px">
+      <mat-grid-tile [rowspan]="2">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>
+                Games
+              </mat-card-title>
+            </mat-card-title-group>
+            <div fxFlex></div>
+            <div fxLayoutAlign="top top" class="player-button-container">
+              <button mat-mini-fab color="primary" (click)="openDialog()">
+                <mat-icon>
+                  add_outline
+                </mat-icon>
+              </button>
+            </div>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+  
+      <mat-grid-tile>
+      </mat-grid-tile>
+  
+      <mat-grid-tile>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  

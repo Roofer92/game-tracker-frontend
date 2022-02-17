@@ -9,6 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { PlaygroupModule } from '../features/playgroup/playgroup.module';
+import { GamesModule } from '../features/games/games.module';
 
 
 
@@ -24,6 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    PlaygroupModule,
+    GamesModule,
   ],
   exports: [
     NavBarComponent
