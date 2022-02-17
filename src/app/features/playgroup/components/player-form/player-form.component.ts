@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { PlayersService } from 'src/app/core/services/players.service';
+import { CreatePlayerDto } from 'src/app/shared/dtos/create-player.dto';
 
 @Component({
   selector: 'playgroup-player-form',
@@ -11,9 +13,14 @@ export class PlayerFormComponent {
     name: [null, Validators.required],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private playersService: PlayersService) {}
 
   onSubmit(): void {
-    alert('Thanks!');
+    const createPlayerDto: CreatePlayerDto = this.playerForm.value;
+    this.playersService.addPlayer(createPlayerDto).subscribe((player) => {
+      console.log(player);
+    })
   }
 }
