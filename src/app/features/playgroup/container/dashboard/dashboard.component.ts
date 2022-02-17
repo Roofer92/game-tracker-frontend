@@ -51,6 +51,10 @@ export class DashboardComponent {
     const dialogRef = this.dialog.open(PlayerFormDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+      
       const createPlayerDto = result;
       this.playersService.addPlayer(createPlayerDto).subscribe((player) => {
         this.playerTable.refresh();
