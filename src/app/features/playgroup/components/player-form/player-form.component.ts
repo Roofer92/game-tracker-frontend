@@ -15,9 +15,7 @@ export class PlayerFormComponent {
     name: [null, Validators.required],
   });
 
-  constructor(
-    private fb: FormBuilder,
-    private playersService: PlayersService) {}
+  constructor(private fb: FormBuilder) {}
 
   onSubmit(): void {
     if (!this.playerForm.valid) {

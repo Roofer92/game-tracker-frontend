@@ -5,7 +5,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DivideValuesPipe implements PipeTransform {
 
-  transform(divident: number, divisor = 1): number {
+  transform(divident: number | undefined, divisor = 1): number {
+    if (divident == undefined) {
+      return 0;
+    }
+
     if (divisor == 0) {
       return 0;
     }

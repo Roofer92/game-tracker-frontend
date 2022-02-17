@@ -2,6 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { PlayersService } from 'src/app/core/services/players.service';
+import { CreatePlayerDto } from 'src/app/shared/dtos/create-player.dto';
+import { Player } from 'src/app/shared/model/player.model';
+import { Router } from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import { PlayerFormDialogComponent } from '../../components/player-form-dialog/player-form-dialog.component';
 
 @Component({
   selector: 'playgroup-dashboard',
@@ -32,15 +37,24 @@ export class DashboardComponent {
   );
 
   constructor(
+    private dialog: MatDialog,
+    private router: Router,
     private breakpointObserver: BreakpointObserver,
     private playersService: PlayersService,
   ) { }
 
-  onCreatePlayerSubmit(createPlayerDto: any): void {
-    this.playersService.addPlayer(createPlayerDto).subscribe((player) => {
-      console.log(player);
-      this.playerTable.refresh();
-    })
+  onPlayerSelected(player: Player): void {
+      this.router.navigate(['/playgroup/players', player._id]);
+  }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(PlayerFormDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      const createPlayerDto = result;
+      this.playersService.addPlayer(createPlayerDto).subscribe((player) => {
+        this.playerTable.refresh();
+      })
+    });
   }
 }

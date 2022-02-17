@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Add new Player</h1>
+<form [formGroup]="playerForm" (ngSubmit)="onSubmit()">
+    <div mat-dialog-content>
+        <mat-form-field>
+            <input matInput placeholder="Name" formControlName="name">
+        </mat-form-field>
+    </div>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-raised-button [mat-dialog-close]="playerForm.value" cdkFocusInitial type="submit" color="primary" [disabled]="!playerForm.valid">Add</button>
+      </mat-dialog-actions>
+</form>

@@ -13,10 +13,10 @@ import { PlaygroupModule } from './features/playgroup/playgroup.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     CoreModule,
-    PlaygroupModule
+    PlaygroupModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
