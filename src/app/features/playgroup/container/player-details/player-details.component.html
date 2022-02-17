@@ -4,10 +4,20 @@
         <mat-grid-tile [rowspan]="2">
             <mat-card class="dashboard-card">
                 <mat-card-header>
-                    <mat-card-title>
+                    <mat-card-title-group>
+                      <mat-card-title>
                         Decks
-                    </mat-card-title>
-                </mat-card-header>
+                      </mat-card-title>
+                    </mat-card-title-group>
+                    <div fxFlex></div>
+                    <div fxLayoutAlign="top top" class="player-button-container">
+                      <button mat-mini-fab color="primary" (click)="openDialog()">
+                        <mat-icon>
+                          add_outline
+                        </mat-icon>
+                      </button>
+                    </div>
+                  </mat-card-header>
                 <mat-card-content class="dashboard-card-content">
                 </mat-card-content>
             </mat-card>

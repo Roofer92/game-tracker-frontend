@@ -22,6 +22,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PlayerFormDialogComponent } from './components/player-form-dialog/player-form-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DecksTableComponent } from './components/decks-table/decks-table.component';
+import { DeckFormDialogComponent } from './components/deck-form-dialog/deck-form-dialog.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { DecksTableComponent } from './components/decks-table/decks-table.compon
     PlayerTableComponent,
     PlayerDetailsComponent,
     PlayerFormDialogComponent,
-    DecksTableComponent
+    DecksTableComponent,
+    DeckFormDialogComponent
 ],
   imports: [
     CommonModule,

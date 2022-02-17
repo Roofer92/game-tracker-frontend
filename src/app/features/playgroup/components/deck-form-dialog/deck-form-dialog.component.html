@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Add new Deck</h1>
+<form [formGroup]="deckForm">
+    <div mat-dialog-content>
+        <p>
+            <mat-form-field>
+                <input matInput placeholder="Name" formControlName="name">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+                <input matInput placeholder="Commander" formControlName="commander">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+                <input matInput placeholder="ScryfallLink" formControlName="commanderScryFallLink">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+                <input matInput placeholder="Partner" formControlName="partner">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+                <input matInput placeholder="Partner Scryfall Link" formControlName="partnerScryFallLink">
+            </mat-form-field>
+        </p>
+    </div>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-raised-button [mat-dialog-close]="deckForm.value" type="submit" color="primary"
+            [disabled]="!deckForm.valid">Add</button>
+    </mat-dialog-actions>
+</form>
