@@ -12,7 +12,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public openDialog(): void {
+  public openAddGameDialog(): void {
+
+  }
+
+  public openAddWinconDialog(): void {
 
   }
 }
