@@ -22,11 +22,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { GameFormDialogComponent } from './components/game-form-dialog/game-form-dialog.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDividerModule} from '@angular/material/divider';
+import { WinconFormDialogComponent } from './components/wincon-form-dialog/wincon-form-dialog.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    GameFormDialogComponent
+    GameFormDialogComponent,
+    WinconFormDialogComponent
   ],
   imports: [
     CommonModule,

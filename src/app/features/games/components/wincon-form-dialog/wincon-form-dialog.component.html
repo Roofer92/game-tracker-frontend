@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Add Wincon</h1>
+<div mat-dialog-content>
+    <form [formGroup]="winconForm">
+        <mat-form-field>
+            <input matInput placeholder="Type" formControlName="type">
+        </mat-form-field>
+    </form>
+</div>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button [mat-dialog-close]="winconForm.value" type="submit" color="primary"
+        [disabled]="!winconForm.valid">Add</button>
+</mat-dialog-actions>
