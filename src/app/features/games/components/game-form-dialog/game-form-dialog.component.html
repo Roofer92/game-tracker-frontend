@@ -38,9 +38,12 @@
                                 </mat-select>
                             </mat-form-field>
                             
-                            <mat-checkbox formControlName="isWinner">
-                                winner
-                            </mat-checkbox>
+                            <mat-form-field>
+                                <mat-select placeholder="Is Winner?" formControlName="isWinner">
+                                    <mat-option [value]="true">Winner</mat-option>
+                                    <mat-option [value]="false">Loser</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </p>
                     </form>
                 </div>
