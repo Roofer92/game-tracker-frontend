@@ -19,11 +19,14 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { GameFormDialogComponent } from './components/game-form-dialog/game-form-dialog.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    GameFormDialogComponent
   ],
   imports: [
     CommonModule,
@@ -44,6 +47,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatDialogModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    MatCheckboxModule,
+    MatDividerModule
+    
   ]
 })
 export class GamesModule { }

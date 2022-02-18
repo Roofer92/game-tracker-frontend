@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>Tack Game</h1>
+<div mat-dialog-content>
+    <form [formGroup]="gameForm">
+        <h2>Game Infos</h2>
+        
+        <div formArrayName="participants">
+            <h2>Participants
+                <div fxFlex></div>
+                <div fxLayoutAlign="top top" class="player-button-container">
+                    <button mat-mini-fab color="primary" (click)="addParticipant()">
+                        <mat-icon>
+                            add_outline
+                        </mat-icon>
+                    </button>
+                </div>
+            </h2>
+
+            <div *ngFor="let participant of participants.controls; let i = index">
+                <div class="participant-form-field-container">
+                    <form formGroupName="{{i}}">
+                        <p>
+                            <mat-form-field>
+                                <mat-select #playerSelect placeholder="Player" formControlName="player">
+                                    <mat-option *ngFor="let player of players" [value]="player">{{ player.name }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            
+                            <mat-form-field>
+                                <mat-select placeholder="Deck" formControlName="deck">
+                                    <ng-container  *ngFor="let deck of playerSelect.value?.decks" >
+                                        <mat-option [value]="deck">{{ deck.name }}</mat-option>
+                                    </ng-container>
+                                </mat-select>
+                            </mat-form-field>
+                            
+                            <mat-checkbox formControlName="isWinner">
+                                winner
+                            </mat-checkbox>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button [mat-dialog-close]="gameForm.value" type="submit" color="primary"
+        [disabled]="!gameForm.valid">Add</button>
+</mat-dialog-actions>
