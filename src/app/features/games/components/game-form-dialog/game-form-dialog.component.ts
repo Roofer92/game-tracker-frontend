@@ -22,6 +22,7 @@ export class GameFormDialogComponent implements OnInit {
   public gameForm = this.fb.group({
     wincondition: ['', Validators.required],
     participants: this.participants,
+    playedAt: ['', Validators.required]
   });
 
   constructor(

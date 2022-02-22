@@ -1,3 +1,7 @@
-.participant-form-field-container .mat-form-field + .mat-form-field {
+.participant-form-field-container .mat-form-field+.mat-form-field {
     margin-left: 8px;
-  }
+}
+
+.game-info-form-field-container .mat-form-field+.mat-form-field {
+    margin-left: 32px;
+}

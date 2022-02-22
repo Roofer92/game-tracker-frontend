@@ -4,7 +4,9 @@ import { GamesService } from 'src/app/core/services/games.service';
 import { WinconditionsService } from 'src/app/core/services/winconditions.service';
 import { CreateGameDto } from 'src/app/shared/dtos/create-game.dto';
 import { CreateWinconditionDto } from 'src/app/shared/dtos/create-wincondition.dto';
+import { Deck } from 'src/app/shared/model/deck.model';
 import { Game } from 'src/app/shared/model/game.model';
+import { Player } from 'src/app/shared/model/player.model';
 import { GameFormDialogComponent } from '../../components/game-form-dialog/game-form-dialog.component';
 import { WinconFormDialogComponent } from '../../components/wincon-form-dialog/wincon-form-dialog.component';
 
@@ -33,11 +35,12 @@ export class DashboardComponent implements OnInit {
         return;
       }
 
-      const participants: {player: string, deck: string, isWinner: boolean}[] = result.participants;
+      const participants: {player: Player, deck: Deck, isWinner: boolean}[] = result.participants;
 
       const createGameDto: CreateGameDto = {
         participants: participants,
         wincondition: result.wincondition,
+        playedAt: result.playedAt,
       };
 
       this.gamesService.addGame(createGameDto).subscribe((game: Game) => {

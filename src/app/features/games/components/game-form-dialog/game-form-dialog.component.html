@@ -2,11 +2,23 @@
 <div mat-dialog-content>
     <form [formGroup]="gameForm">
         <h2>Game Infos</h2>
-        <mat-form-field>
-            <mat-select placeholder="Wincondition" formControlName="wincondition">
-                <mat-option *ngFor="let wincon of wincons" [value]="wincon">{{ wincon.type }}</mat-option>
-            </mat-select>
-        </mat-form-field>
+        <div class="game-info-form-field-container">
+
+            <mat-form-field>
+                <mat-label>Played at</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="playedAt">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-select placeholder="Wincondition" formControlName="wincondition">
+                    <mat-option *ngFor="let wincon of wincons" [value]="wincon">{{ wincon.type }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+
 
         <div formArrayName="participants">
             <h2>Participants
@@ -26,18 +38,19 @@
                         <p>
                             <mat-form-field>
                                 <mat-select #playerSelect placeholder="Player" formControlName="player">
-                                    <mat-option *ngFor="let player of players" [value]="player">{{ player.name }}</mat-option>
+                                    <mat-option *ngFor="let player of players" [value]="player">{{ player.name }}
+                                    </mat-option>
                                 </mat-select>
                             </mat-form-field>
-                            
+
                             <mat-form-field>
                                 <mat-select placeholder="Deck" formControlName="deck">
-                                    <ng-container  *ngFor="let deck of playerSelect.value?.decks" >
+                                    <ng-container *ngFor="let deck of playerSelect.value?.decks">
                                         <mat-option [value]="deck">{{ deck.name }}</mat-option>
                                     </ng-container>
                                 </mat-select>
                             </mat-form-field>
-                            
+
                             <mat-form-field>
                                 <mat-select placeholder="Is Winner?" formControlName="isWinner">
                                     <mat-option [value]="true">Winner</mat-option>
@@ -54,6 +67,5 @@
 </div>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button [mat-dialog-close]="gameForm.value" type="submit" color="primary"
-        [disabled]="!gameForm.valid">Add</button>
+    <button mat-raised-button [mat-dialog-close]="gameForm.value" type="submit" color="primary" [disabled]="!gameForm.valid">Add</button>
 </mat-dialog-actions>

@@ -24,6 +24,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDividerModule} from '@angular/material/divider';
 import { WinconFormDialogComponent } from './components/wincon-form-dialog/wincon-form-dialog.component';
 import { GamesTableComponent } from './components/games-table/games-table.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -52,8 +54,9 @@ import { GamesTableComponent } from './components/games-table/games-table.compon
     ReactiveFormsModule,
     FlexLayoutModule,
     MatCheckboxModule,
-    MatDividerModule
-    
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ]
 })
 export class GamesModule { }

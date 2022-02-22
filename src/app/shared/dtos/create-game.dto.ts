@@ -1,7 +1,11 @@
+import { Deck } from "../model/deck.model";
+import { Player } from "../model/player.model";
+
 export interface CreateGameDto {
     participants: {
-      player: string;
-      deck: string;
+      player: Player;
+      deck: Deck;
     }[];
     wincondition: boolean;
+    playedAt: Date;
   }
