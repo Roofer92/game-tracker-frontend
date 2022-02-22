@@ -30,7 +30,6 @@ export class WinconditionsTableComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.winconditionsService.getAllWincondtions().subscribe((wincons) => {
-      console.log(wincons);
       this.dataSource.data = wincons;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
