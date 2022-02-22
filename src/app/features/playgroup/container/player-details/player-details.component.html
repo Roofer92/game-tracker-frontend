@@ -5,19 +5,19 @@
             <mat-card class="dashboard-card">
                 <mat-card-header>
                     <mat-card-title-group>
-                      <mat-card-title>
-                        Decks
-                      </mat-card-title>
+                        <mat-card-title>
+                            Decks
+                        </mat-card-title>
                     </mat-card-title-group>
                     <div fxFlex></div>
                     <div fxLayoutAlign="top top" class="player-button-container">
-                      <button mat-mini-fab color="primary" (click)="openDialog()">
+                        <button mat-mini-fab color="primary" (click)="openDialog()">
                         <mat-icon>
                           add_outline
                         </mat-icon>
                       </button>
                     </div>
-                  </mat-card-header>
+                </mat-card-header>
                 <mat-card-content class="dashboard-card-content">
                     <playgroup-decks-table #decksTable></playgroup-decks-table>
                 </mat-card-content>
@@ -45,7 +45,7 @@
                     </mat-card-title>
                 </mat-card-header>
                 <mat-card-content class="dashboard-card-content">
-                    <p>Placeholder for most played Deck in last X games</p>
+                    <p>{{favouriteDeck?.name}}</p>
                 </mat-card-content>
             </mat-card>
         </mat-grid-tile>
