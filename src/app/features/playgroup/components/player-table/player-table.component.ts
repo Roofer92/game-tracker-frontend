@@ -49,7 +49,7 @@ export class PlayerTableComponent implements OnInit, AfterViewInit {
     });
   }
 
-  rowSelected(player: Player) {
+  showDetails(player: Player) {
     this.selected.emit(player);
   }
 }
