@@ -17,6 +17,7 @@ import { WinconFormDialogComponent } from '../../components/wincon-form-dialog/w
 })
 export class DashboardComponent implements OnInit {
   @ViewChild('gamesTable') gamesTable: any
+  @ViewChild('winconditionsTable') winconditionsTable: any
 
   constructor(
     private dialog: MatDialog,
@@ -60,8 +61,7 @@ export class DashboardComponent implements OnInit {
       const createWinconditionDto: CreateWinconditionDto = result;
 
       this.winconditionService.addWincondition(createWinconditionDto).subscribe((wincondition) => {
-        // TODO: refresh winconditions table
-        console.log(wincondition);
+          this.winconditionsTable.refresh();
       });
     });
   }

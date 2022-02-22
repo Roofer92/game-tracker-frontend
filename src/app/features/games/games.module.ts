@@ -26,13 +26,15 @@ import { WinconFormDialogComponent } from './components/wincon-form-dialog/winco
 import { GamesTableComponent } from './components/games-table/games-table.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { WinconditionsTableComponent } from './components/winconditions-table/winconditions-table.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     GameFormDialogComponent,
     WinconFormDialogComponent,
-    GamesTableComponent
+    GamesTableComponent,
+    WinconditionsTableComponent
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
@@ -10,7 +10,7 @@ import { Game } from 'src/app/shared/model/game.model';
   templateUrl: './games-table.component.html',
   styleUrls: ['./games-table.component.css']
 })
-export class GamesTableComponent implements OnInit {
+export class GamesTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Game>;
@@ -32,7 +32,6 @@ export class GamesTableComponent implements OnInit {
 
   ngOnInit(): void {
       this.gamesService.getAllGames().subscribe((games) => {
-        console.log(games);
         this.dataSource.data = games;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
