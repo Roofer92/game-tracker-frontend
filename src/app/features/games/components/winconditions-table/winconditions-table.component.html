@@ -6,6 +6,12 @@
             <td mat-cell *matCellDef="let row">{{row.type}}</td>
         </ng-container>
 
+        <!-- Type Column -->
+        <ng-container matColumnDef="winrate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Winrate</th>
+            <td mat-cell *matCellDef="let row">{{row.total_wins | divideValues: playedGames | percent}}</td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>

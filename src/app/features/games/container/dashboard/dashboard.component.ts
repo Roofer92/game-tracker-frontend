@@ -45,7 +45,8 @@ export class DashboardComponent implements OnInit {
       };
 
       this.gamesService.addGame(createGameDto).subscribe((game: Game) => {
-        this.gamesTable.refresh()
+        this.gamesTable.refresh();
+        this.winconditionsTable.refresh();
       });
     });
   }
