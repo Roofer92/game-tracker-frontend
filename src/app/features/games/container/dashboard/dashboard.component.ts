@@ -19,6 +19,8 @@ export class DashboardComponent implements OnInit {
   @ViewChild('gamesTable') gamesTable: any
   @ViewChild('winconditionsTable') winconditionsTable: any
 
+  public games: Game[] = []
+
   constructor(
     private dialog: MatDialog,
     private winconditionService: WinconditionsService,
@@ -26,17 +28,20 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.gamesService.getAllGames().subscribe((games: Game[]) => {
+      this.games = games;
+    });
   }
 
   public openAddGameDialog(): void {
     const dialogRef = this.dialog.open(GameFormDialogComponent);
 
-    dialogRef.afterClosed().subscribe( result => {
+    dialogRef.afterClosed().subscribe(result => {
       if (!result) {
         return;
       }
 
-      const participants: {player: Player, deck: Deck, isWinner: boolean}[] = result.participants;
+      const participants: { player: Player, deck: Deck, isWinner: boolean }[] = result.participants;
 
       const createGameDto: CreateGameDto = {
         participants: participants,
@@ -54,7 +59,7 @@ export class DashboardComponent implements OnInit {
   public openAddWinconDialog(): void {
     const dialogRef = this.dialog.open(WinconFormDialogComponent);
 
-    dialogRef.afterClosed().subscribe( result => {
+    dialogRef.afterClosed().subscribe(result => {
       if (!result) {
         return;
       }
@@ -62,7 +67,7 @@ export class DashboardComponent implements OnInit {
       const createWinconditionDto: CreateWinconditionDto = result;
 
       this.winconditionService.addWincondition(createWinconditionDto).subscribe((wincondition) => {
-          this.winconditionsTable.refresh();
+        this.winconditionsTable.refresh();
       });
     });
   }
