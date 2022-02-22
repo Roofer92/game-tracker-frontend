@@ -23,12 +23,14 @@ import { GameFormDialogComponent } from './components/game-form-dialog/game-form
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDividerModule} from '@angular/material/divider';
 import { WinconFormDialogComponent } from './components/wincon-form-dialog/wincon-form-dialog.component';
+import { GamesTableComponent } from './components/games-table/games-table.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     GameFormDialogComponent,
-    WinconFormDialogComponent
+    WinconFormDialogComponent,
+    GamesTableComponent
   ],
   imports: [
     CommonModule,
