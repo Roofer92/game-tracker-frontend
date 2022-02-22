@@ -19,7 +19,7 @@ export class GamesTableComponent implements OnInit {
   dataSource = new MatTableDataSource<Game>(this.tableData);
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['playedAt', 'player', 'isWinner'];
+  displayedColumns = ['playedAt', 'player', 'isWinner', 'wincondition'];
 
   constructor(
     private gamesService: GamesService,
