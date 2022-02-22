@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { DecksService } from 'src/app/core/services/decks.service';
 import { PlayersService } from 'src/app/core/services/players.service';
 import { CreateDeckDto } from 'src/app/shared/dtos/create-deck.dto';
+import { Deck } from 'src/app/shared/model/deck.model';
 import { Player } from 'src/app/shared/model/player.model';
 import { DeckFormDialogComponent } from '../../components/deck-form-dialog/deck-form-dialog.component';
 
@@ -16,6 +17,7 @@ export class PlayerDetailsComponent implements OnInit {
   @ViewChild('decksTable') decksTable: any;
 
   public player: Player | undefined;
+  public favouriteDeck: Deck | undefined;
 
   constructor(
     private dialog: MatDialog,
@@ -30,8 +32,25 @@ export class PlayerDetailsComponent implements OnInit {
         this.playersService.getPlayer(params['id']).subscribe((player: Player) => {
           this.player = player;
           this.decksTable.refresh(this.player.decks);
+          this.setFavouriteDeck(player);
         });
       });
+  }
+
+  private setFavouriteDeck(player: Player) {
+    let favouriteDeck: Deck | undefined = undefined;
+    player.decks.forEach((deck: Deck) => {
+      if (favouriteDeck == undefined) {
+        favouriteDeck = deck;
+        return;
+      }
+
+      if (deck.total_games > favouriteDeck.total_games) {
+        this.favouriteDeck = deck;
+      }
+    });
+
+    this.favouriteDeck = favouriteDeck;
   }
 
   openDialog() {
