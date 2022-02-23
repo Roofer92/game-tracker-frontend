@@ -18,22 +18,12 @@
         </p>
         <p>
             <mat-form-field>
-                <input matInput placeholder="ScryfallLink" formControlName="commanderScryFallLink">
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field>
                 <mat-autocomplete #partnerAuto="matAutocomplete">
                     <mat-option *ngFor="let option of filteredPartnerOptions | async" [value]="option">
                       {{option}}
                     </mat-option>
                   </mat-autocomplete>
                 <input matInput placeholder="Partner" formControlName="partner" [matAutocomplete]="partnerAuto">
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field>
-                <input matInput placeholder="Partner Scryfall Link" formControlName="partnerScryFallLink">
             </mat-form-field>
         </p>
     </div>
