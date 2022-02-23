@@ -11,7 +11,7 @@ export class CardExistsValidator {
         return this.scryfallService.getCardByName(control.value).pipe(
             delay(50),
             map(result => result == undefined ? {exists: false} : null),
-            catchError(error =>  of({exists: false})),
+            catchError(() => of({exists: false})),
         )
     }
 }
