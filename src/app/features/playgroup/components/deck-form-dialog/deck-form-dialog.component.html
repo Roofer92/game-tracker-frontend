@@ -8,7 +8,12 @@
         </p>
         <p>
             <mat-form-field>
-                <input matInput placeholder="Commander" formControlName="commander">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredCommanderOptions | async" [value]="option">
+                      {{option}}
+                    </mat-option>
+                  </mat-autocomplete>
+                <input matInput placeholder="Commander" formControlName="commander" [matAutocomplete]="auto">
             </mat-form-field>
         </p>
         <p>
@@ -18,7 +23,12 @@
         </p>
         <p>
             <mat-form-field>
-                <input matInput placeholder="Partner" formControlName="partner">
+                <mat-autocomplete #partnerAuto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredPartnerOptions | async" [value]="option">
+                      {{option}}
+                    </mat-option>
+                  </mat-autocomplete>
+                <input matInput placeholder="Partner" formControlName="partner" [matAutocomplete]="partnerAuto">
             </mat-form-field>
         </p>
         <p>

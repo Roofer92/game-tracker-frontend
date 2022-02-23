@@ -23,6 +23,7 @@ import { PlayerFormDialogComponent } from './components/player-form-dialog/playe
 import { MatDialogModule } from '@angular/material/dialog';
 import { DecksTableComponent } from './components/decks-table/decks-table.component';
 import { DeckFormDialogComponent } from './components/deck-form-dialog/deck-form-dialog.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { DeckFormDialogComponent } from './components/deck-form-dialog/deck-form
     MatDialogModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    MatAutocompleteModule,
   ]
 })
 export class PlaygroupModule { }
