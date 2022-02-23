@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { concatMap, flatMap, map, mergeMap, Observable, of, startWith, subscribeOn } from 'rxjs';
+import { delay, map, mergeMap, Observable } from 'rxjs';
 import { ScryfallService } from 'src/app/core/services/scryfall.service';
+import { CardExistsValidator } from 'src/app/shared/validators/card-exists.validator';
 
 @Component({
   selector: 'app-deck-form-dialog',
@@ -10,12 +11,14 @@ import { ScryfallService } from 'src/app/core/services/scryfall.service';
   styleUrls: ['./deck-form-dialog.component.css']
 })
 export class DeckFormDialogComponent implements OnInit {
-  filteredCommanderOptions: Observable<any[]> | undefined;
-  filteredPartnerOptions: Observable<string[]> | undefined;
+  autocompletedCommanderOptions: Observable<any[]> | undefined;
+  autocompletedPartnerOptions: Observable<string[]> | undefined;
+
+  partnerValidator = this.cardExistsValidator.checkCardName.bind(this.cardExistsValidator);
 
   public deckForm = this.fb.group({
     name: [null, Validators.required],
-    commander: [null, Validators.required],
+    commander: ['', Validators.required, this.cardExistsValidator.checkCardName.bind(this.cardExistsValidator)],
     partner: null,
   });
 
@@ -23,32 +26,48 @@ export class DeckFormDialogComponent implements OnInit {
     public dialog: MatDialog,
     private fb: FormBuilder,
     private scryfallService: ScryfallService,
+    private cardExistsValidator: CardExistsValidator,
   ) { }
 
-  getCommander(): FormControl {
+  getCommanderFormControl(): FormControl {
     return this.deckForm.get('commander') as FormControl;
   }
 
-  getPartner(): FormControl {
+  getPartnerFormControl(): FormControl {
     return this.deckForm.get('partner') as FormControl;
   }
 
   ngOnInit(): void {
-    this.filteredCommanderOptions = this.getCommander().valueChanges.pipe(
+    this.autocompletedCommanderOptions = this.getCommanderFormControl().valueChanges.pipe(
+      delay(200),
       mergeMap(
-        result => this.scryfallService.getCardsAutocomplete(result).pipe(
+        value => this.scryfallService.getCardsAutocomplete(value).pipe(
           map(result => result.data)
         )
       )
     );
 
-    this.filteredPartnerOptions = this.getPartner().valueChanges.pipe(
+    this.autocompletedPartnerOptions = this.getPartnerFormControl().valueChanges.pipe(
+      delay(200),
       mergeMap(
-        result => this.scryfallService.getCardsAutocomplete(result).pipe(
+        value => this.scryfallService.getCardsAutocomplete(value).pipe(
           map(result => result.data)
         )
       )
     );
+    
+    this.getPartnerFormControl().valueChanges.subscribe(value => {
+        this.addOrRemovePartnerValidation(value);
+    });
+  }
+
+  private addOrRemovePartnerValidation(value: string) {
+    if (value.length > 0 && !this.getPartnerFormControl().hasAsyncValidator(this.partnerValidator)) {
+      this.getPartnerFormControl().addAsyncValidators([this.partnerValidator]);
+    } else if (value.length == 0 && this.getPartnerFormControl().hasAsyncValidator(this.partnerValidator)){
+      this.getPartnerFormControl().removeAsyncValidators([this.partnerValidator]);
+      this.getPartnerFormControl().updateValueAndValidity();
+    } 
   }
 }
 

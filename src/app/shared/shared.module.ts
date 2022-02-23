@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DivideValuesPipe } from './pipes/divide-values.pipe';
+import { CardExistsValidator } from './validators/card-exists.validator';
 
 
 
@@ -13,6 +14,9 @@ import { DivideValuesPipe } from './pipes/divide-values.pipe';
   ],
   exports: [
     DivideValuesPipe
+  ],
+  providers: [
+    CardExistsValidator,
   ]
 })
 export class SharedModule { }

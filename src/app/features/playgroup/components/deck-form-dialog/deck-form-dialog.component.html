@@ -9,7 +9,7 @@
         <p>
             <mat-form-field>
                 <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredCommanderOptions | async" [value]="option">
+                    <mat-option *ngFor="let option of autocompletedCommanderOptions | async" [value]="option">
                       {{option}}
                     </mat-option>
                   </mat-autocomplete>
@@ -19,7 +19,7 @@
         <p>
             <mat-form-field>
                 <mat-autocomplete #partnerAuto="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredPartnerOptions | async" [value]="option">
+                    <mat-option *ngFor="let option of autocompletedPartnerOptions | async" [value]="option">
                       {{option}}
                     </mat-option>
                   </mat-autocomplete>

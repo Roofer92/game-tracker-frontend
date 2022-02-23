@@ -17,4 +17,11 @@ export class ScryfallService {
 
     return this.http.get<any>(`${URL}/cards/autocomplete`, {params});
   }
+
+  getCardByName(name: string) {
+    const params: HttpParams = new HttpParams()
+      .set('exact', name)
+
+    return this.http.get<any>(`${URL}/cards/named`, {params});
+  }
 }
