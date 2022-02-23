@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
+import { forkJoin, map, switchMap } from 'rxjs';
 import { DecksService } from 'src/app/core/services/decks.service';
 import { PlayersService } from 'src/app/core/services/players.service';
-import { CreateDeckDto } from 'src/app/shared/dtos/create-deck.dto';
+import { ScryfallService } from 'src/app/core/services/scryfall.service';
 import { Deck } from 'src/app/shared/model/deck.model';
 import { Player } from 'src/app/shared/model/player.model';
 import { DeckFormDialogComponent } from '../../components/deck-form-dialog/deck-form-dialog.component';
@@ -24,20 +25,33 @@ export class PlayerDetailsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private playersService: PlayersService,
     private decksService: DecksService,
+    private scryfallService: ScryfallService,
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         this.playersService.getPlayer(params['id']).subscribe((player: Player) => {
           this.player = player;
           this.decksTable.refresh(this.player.decks);
-          this.setFavouriteDeck(player);
+          this._setFavouriteDeck(player);
         });
       });
   }
 
-  private setFavouriteDeck(player: Player) {
+  public openDialog(): void {
+    const createDeckDialogRef = this.dialog.open(DeckFormDialogComponent);
+
+    createDeckDialogRef.afterClosed().subscribe(result => {
+      if (!result || !this.player) {
+        return;
+      }
+
+      this._addDeck(result);
+    });
+  }
+
+  private _setFavouriteDeck(player: Player) {
     let favouriteDeck: Deck | undefined = undefined;
     player.decks.forEach((deck: Deck) => {
       if (favouriteDeck == undefined) {
@@ -53,40 +67,52 @@ export class PlayerDetailsComponent implements OnInit {
     this.favouriteDeck = favouriteDeck;
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(DeckFormDialogComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result || !this.player) {
-        return;
-      }
-
-      const createDeckDto: CreateDeckDto = {
+  private _addDeck(result: { name?: any; commander: string; partner?: string; }): void {
+    this._getCommanders(result).subscribe(commanders => {
+      const deckDto = {
         name: result.name,
-        commander: [],
-        owner: this.player._id,
-      };
-
-      createDeckDto.commander.push({
-        name: result.commander,
-        scryfall_id: result.commanderScryFallLink
-      });
-
-      if (result.partner) {
-        createDeckDto.commander.push({
-          name: result.partner,
-          scryfall_id: result.partnerScryFallLink,
-        });
-
+        commander: commanders,
+        owner: this.player!._id
       }
 
-      this.decksService.addDeck(createDeckDto).subscribe((deck) => {
-        if (!this.player) {
-          return;
-        }
-        this.player.decks.push(deck);
-        this.decksTable.refresh(this.player.decks);
-      });
-    });
+      this.decksService.addDeck(deckDto).subscribe((deck) => {
+        this.player!.decks.push(deck);
+        this.decksTable.refresh(this.player!.decks);
+      })
+    })
+  }
+
+
+  private _getCommanders(result:{ name?: any; commander: string; partner?: string; }) {
+    let $getCommander = this.scryfallService.getCardByName(result.commander).pipe(
+      map(card => {
+        return [{
+          name: card.name,
+          scryfall_id: card.id,
+        }]
+      })
+    );
+
+    if (result.partner) {
+      const $getPartner = this.scryfallService.getCardByName(result.partner)
+        .pipe(
+          map(card => {
+            return [{
+              name: card.name,
+              scryfall_id: card.id,
+            }]
+          })
+        );
+
+      $getCommander = forkJoin({
+        commander: $getCommander,
+        partner: $getPartner,
+      }).pipe(
+        map(response => [...response.commander, ...response.partner])
+      )
+    }
+
+    return $getCommander;
   }
 }
