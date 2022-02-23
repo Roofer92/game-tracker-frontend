@@ -2,7 +2,7 @@ import { Player } from "./player.model";
 
 interface Commander {
     name: string;
-    scryfall_url: string;
+    scryfall_id: string;
 }
 
 export interface Deck {

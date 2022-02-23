@@ -69,13 +69,13 @@ export class PlayerDetailsComponent implements OnInit {
 
       createDeckDto.commander.push({
         name: result.commander,
-        scryfall_url: result.commanderScryFallLink
+        scryfall_id: result.commanderScryFallLink
       });
 
       if (result.partner) {
         createDeckDto.commander.push({
           name: result.partner,
-          scryfall_url: result.partnerScryFallLink,
+          scryfall_id: result.partnerScryFallLink,
         });
 
       }

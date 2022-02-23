@@ -2,7 +2,7 @@ export interface CreateDeckDto {
   name: string;
   commander: {
     name: string;
-    scryfall_url: string;
+    scryfall_id: string;
   }[];
   owner: string;
 }
