@@ -39,7 +39,7 @@ export class DeckFormDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.autocompletedCommanderOptions = this.getCommanderFormControl().valueChanges.pipe(
-      delay(200),
+      delay(100),
       mergeMap(
         value => this.scryfallService.getCardsAutocomplete(value).pipe(
           map(result => result.data)
@@ -48,7 +48,7 @@ export class DeckFormDialogComponent implements OnInit {
     );
 
     this.autocompletedPartnerOptions = this.getPartnerFormControl().valueChanges.pipe(
-      delay(200),
+      delay(100),
       mergeMap(
         value => this.scryfallService.getCardsAutocomplete(value).pipe(
           map(result => result.data)

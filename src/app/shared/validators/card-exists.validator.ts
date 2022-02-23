@@ -9,7 +9,7 @@ export class CardExistsValidator {
 
     checkCardName(control: AbstractControl): Observable<ValidationErrors | null> {
         return this.scryfallService.getCardByName(control.value).pipe(
-            delay(200),
+            delay(50),
             map(result => result == undefined ? {exists: false} : null),
             catchError(error =>  of({exists: false})),
         )
